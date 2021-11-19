@@ -1,25 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { StudentContainer } from './Student';
+import { SearchBar } from './SearchBar';
+import { StudentsContainer } from './styles.css';
 
-function App() {
+const App: React.FC = () => {
+
+  const [studentData, setStudentData] = useState([]);
+
+  const [searchInput, setSearchInput] = useState('');
+
+  useEffect(() => {
+
+    axios.get(`https://api.hatchways.io/assessment/students`)
+    .then(({data: studentData}) => {
+      setStudentData(studentData.students);
+    })
+
+  }, []);
+
+  const FIXME = 'fixme';
+
+
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <SearchBar name={FIXME}/>
+    <StudentsContainer>
+      {studentData.map((student, i) => (
+        <StudentContainer student={student} key={i}/>
+      ))}
+    </StudentsContainer>
+    </>
   );
 }
 
