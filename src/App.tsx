@@ -14,21 +14,37 @@ const App: React.FC = () => {
 
     axios.get(`https://api.hatchways.io/assessment/students`)
     .then(({data: studentData}) => {
-      setStudentData(studentData.students);
+
+      const { students } = studentData;
+      return students;
+
+    })
+    .then(students => {
+      const studentDataWithFullName = students.map((student: { fullName: string; firstName: string; lastName: string}):{} => {
+
+        student.fullName = student.firstName.toUpperCase() + ' ' + student.lastName.toUpperCase();
+        return student;
+
+      })
+      setStudentData(studentDataWithFullName);
     })
 
   }, []);
 
-  const FIXME = 'fixme';
-
-
-
+  const searchStudentsByName = (e: React.FormEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const name = (e.target as HTMLTextAreaElement).value.toLowerCase();
+    setSearchInput(name);
+  }
 
   return (
     <>
-    <SearchBar name={FIXME}/>
+    <SearchBar name={searchInput} searchStudentsByName={searchStudentsByName}/>
     <StudentsContainer>
-      {studentData.map((student, i) => (
+      {studentData.filter((student: { fullName: string}):{} => {
+        student.fullName = student.fullName.toLowerCase();
+        return student.fullName.includes(searchInput);
+      }).map((student, i) => (
         <StudentContainer student={student} key={i}/>
       ))}
     </StudentsContainer>

@@ -12,6 +12,7 @@ interface StudentContainerProps {
 		lastName: string;
 		pic: string;
 		skill: string;
+		fullName: string;
 	};
 	key: number;
 }
@@ -30,15 +31,13 @@ export const StudentContainer: React.FC<StudentContainerProps> = ({student}) => 
 
 	const average:Number = findAverageGrade(student.grades);
 
-	const fullName:String = (student.firstName).toUpperCase() + ' ' + (student.lastName).toUpperCase();
-
 	return (
 		<StudentDiv>
 			<CircleDiv pic={student.pic}/>
 
       <TextDiv>
 				<NameSpan>
-					{fullName}
+					{student.fullName}
 				</NameSpan>
 				<FactsSpan>
 					Email: {student.email}

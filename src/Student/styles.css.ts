@@ -5,8 +5,8 @@ export const StudentDiv = styled.div`
   border: 1px lightGray solid;
 	padding: 5%;
 	display: flex;
-	min-height: 200px;
-	max-height: 200px;
+	min-height: 250px;
+	max-height: 250px;
 `
 
 export const CircleDiv = styled.div<ImageProps>`
