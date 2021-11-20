@@ -10,7 +10,7 @@ export const Grades: React.FC<GradesProps> = ({grades}) => {
 	return (
 		<GradesDiv>
 		{grades.map((grade, i) => (
-			<div>
+			<div key={i}>
 				Test {i + 1}: {grade}%
 			</div>
 		))}
