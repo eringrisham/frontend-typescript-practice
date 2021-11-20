@@ -2,13 +2,18 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { StudentContainer } from './Student';
 import { SearchBar } from './SearchBar';
+import { TagSearchBar } from './TagSearch'
 import { StudentsContainer, HorizontalLine } from './styles.css';
 
 const App: React.FC = () => {
 
   const [studentData, setStudentData] = useState([]);
 
-  const [searchInput, setSearchInput] = useState('');
+  const [nameSearchInput, setNameSearchInput] = useState('');
+
+  const [tagSearchInput, setTagSearchInput] = useState('');
+
+  // const [tags, setTags] = useState(['']);
 
   useEffect(() => {
 
@@ -34,17 +39,31 @@ const App: React.FC = () => {
   const searchStudentsByName = (e: React.FormEvent<HTMLInputElement>) => {
     e.preventDefault();
     const name = (e.target as HTMLTextAreaElement).value.toLowerCase();
-    setSearchInput(name);
+    setNameSearchInput(name);
   }
+
+  const searchStudentsByTag = (e: React.FormEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const newTag = (e.target as HTMLTextAreaElement).value.toLowerCase();
+    setTagSearchInput(newTag);
+  }
+
+  // const addTag = (e: React.FormEvent<HTMLInputElement>) => {
+  //   e.preventDefault();
+  //   const updatedTags = [...tags, (e.target as HTMLTextAreaElement).value]
+  //   setTags(updatedTags);
+  // }
 
   return (
     <>
     <SearchBar searchStudentsByName={searchStudentsByName}/>
     <HorizontalLine/>
+    <TagSearchBar searchStudentsByTag={searchStudentsByTag}/>
+    <HorizontalLine/>
     <StudentsContainer>
       {studentData.filter((student: { fullName: string}):{} => {
         student.fullName = student.fullName.toLowerCase();
-        return student.fullName.includes(searchInput);
+        return student.fullName.includes(nameSearchInput);
       }).map((student, i) => (
         <StudentContainer student={student} key={i}/>
       ))}

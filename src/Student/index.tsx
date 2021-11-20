@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StudentDiv, CircleDiv, TextDiv, NameSpan, FactsSpan, GradesButton, HorizontalLine } from './styles.css';
 import { Grades } from '../GradesView';
+import { Tags } from '../Tags';
 
 interface StudentContainerProps {
 	student: {
@@ -22,6 +23,8 @@ export interface ImageProps {
 	pic: any;
 }
 
+const sampleTags = ['tag1', 'tag2', 'tag3'];
+
 export const StudentContainer: React.FC<StudentContainerProps> = ({student}) => {
 
 	const { fullName, email, company, skill, pic, grades } = student;
@@ -30,6 +33,10 @@ export const StudentContainer: React.FC<StudentContainerProps> = ({student}) => 
 
 	const [gradesView, setGradesView] = useState(false);
 
+	const [tags, setTags] = useState(sampleTags);
+
+	const [tagTerm, setTagTerm] = useState('');
+
 	const findAverageGrade = (grades:[]) => {
     let total = 0;
 		grades.forEach(grade => total += Number(grade));
@@ -37,6 +44,19 @@ export const StudentContainer: React.FC<StudentContainerProps> = ({student}) => 
 	}
 
 	const average:Number = findAverageGrade(grades);
+
+	const addTag = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+    const updatedTags = [...tags, tagTerm];
+    setTags(updatedTags);
+		setTagTerm('');
+  }
+
+	const updateTagTerm = (e: React.FormEvent<HTMLInputElement>) => {
+		e.preventDefault();
+		const term = (e.target as HTMLTextAreaElement).value;
+		setTagTerm(term);
+	}
 
 	return (
 		<>
@@ -62,6 +82,7 @@ export const StudentContainer: React.FC<StudentContainerProps> = ({student}) => 
 			</GradesButton>
 		</StudentDiv>
 		{gradesView ? <Grades grades={grades}/> : null}
+		<Tags tags={tags} tagTerm={tagTerm} updateTagTerm={updateTagTerm} addTag={addTag}/>
 		<HorizontalLine/>
 		</>
 	)

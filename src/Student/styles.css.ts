@@ -10,7 +10,6 @@ export const StudentDiv = styled.div`
 `
 
 export const CircleDiv = styled.div<ImageProps>`
-  display: flex;
   border-radius: 50%;
 	min-height: 200px;
 	max-height: 200px;
@@ -38,7 +37,7 @@ export const NameSpan = styled.div`
 
 export const FactsSpan = styled.span`
   display: flex;
-  color: gray;
+  color: black;
   font-size: 40px;
 	position: relative;
 	left: 40px;
@@ -54,6 +53,9 @@ export const GradesButton = styled.button`
 	left: 1300px;
 	font-size: 150px;
 	background: none;
+	&:hover {
+    color: black;
+  }
 `
 
 export const HorizontalLine = styled.hr`

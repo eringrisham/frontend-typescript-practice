@@ -4,7 +4,7 @@ export const GradesDiv = styled.div`
   text-align: left;
   min-width: 500px;
 	max-width: 500px;
-  color: gray;
+  color: black;
   font-size: 40px;
 	text-wrap: none;
   height: 375px;
