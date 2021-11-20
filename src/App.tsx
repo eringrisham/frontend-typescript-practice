@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { StudentContainer } from './Student';
 import { SearchBar } from './SearchBar';
-import { StudentsContainer } from './styles.css';
+import { StudentsContainer, HorizontalLine } from './styles.css';
 
 const App: React.FC = () => {
 
@@ -22,7 +22,7 @@ const App: React.FC = () => {
     .then(students => {
       const studentDataWithFullName = students.map((student: { fullName: string; firstName: string; lastName: string}):{} => {
 
-        student.fullName = student.firstName.toUpperCase() + ' ' + student.lastName.toUpperCase();
+        student.fullName = student.firstName + ' ' + student.lastName;
         return student;
 
       })
@@ -39,7 +39,8 @@ const App: React.FC = () => {
 
   return (
     <>
-    <SearchBar name={searchInput} searchStudentsByName={searchStudentsByName}/>
+    <SearchBar searchStudentsByName={searchStudentsByName}/>
+    <HorizontalLine/>
     <StudentsContainer>
       {studentData.filter((student: { fullName: string}):{} => {
         student.fullName = student.fullName.toLowerCase();

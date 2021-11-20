@@ -2,14 +2,15 @@ import styled from 'styled-components';
 import { ImageProps } from '.';
 
 export const StudentDiv = styled.div`
-  border: 1px lightGray solid;
-	padding: 5%;
+	padding: 100px;
 	display: flex;
-	min-height: 250px;
-	max-height: 250px;
+	min-height: 160px;
+	height: 160px;
+	overflow: hidden;
 `
 
 export const CircleDiv = styled.div<ImageProps>`
+  display: flex;
   border-radius: 50%;
 	min-height: 200px;
 	max-height: 200px;
@@ -22,20 +23,40 @@ export const CircleDiv = styled.div<ImageProps>`
 `
 
 export const TextDiv = styled.div`
-  padding-left: 5%;
-	margin-top: -4%;
+  display: flex;
+  flex-direction: column;
+  padding-left: 50px;
+	margin-top: -50px;
 	white-space: nowrap;
 `
 
 export const NameSpan = styled.div`
+  display: flex;
   font-weight: bold;
 	font-size: 60px;
 `
 
 export const FactsSpan = styled.span`
+  display: flex;
   color: gray;
   font-size: 40px;
 	position: relative;
-	left: 50px;
+	left: 40px;
 	top: 30px;
+`
+
+export const GradesButton = styled.button`
+  display: flex;
+  color: lightGray;
+	border: none;
+	cursor: pointer;
+  position: absolute;
+	left: 1300px;
+	font-size: 150px;
+	background: none;
+`
+
+export const HorizontalLine = styled.hr`
+  border: 1px lightGray solid;
+	width: 100%;
 `

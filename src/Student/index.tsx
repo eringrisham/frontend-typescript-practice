@@ -1,5 +1,6 @@
-import React from 'react';
-import { StudentDiv, CircleDiv, TextDiv, NameSpan, FactsSpan } from './styles.css';
+import React, { useState } from 'react';
+import { StudentDiv, CircleDiv, TextDiv, NameSpan, FactsSpan, GradesButton, HorizontalLine } from './styles.css';
+import { Grades } from '../GradesView';
 
 interface StudentContainerProps {
 	student: {
@@ -23,32 +24,45 @@ export interface ImageProps {
 
 export const StudentContainer: React.FC<StudentContainerProps> = ({student}) => {
 
+	const { fullName, email, company, skill, pic, grades } = student;
+
+	const fullNameUpperCase = fullName.toUpperCase();
+
+	const [gradesView, setGradesView] = useState(false);
+
 	const findAverageGrade = (grades:[]) => {
     let total = 0;
 		grades.forEach(grade => total += Number(grade));
-		return total/(student.grades.length);
+		return total/(grades.length);
 	}
 
-	const average:Number = findAverageGrade(student.grades);
+	const average:Number = findAverageGrade(grades);
 
 	return (
+		<>
 		<StudentDiv>
-			<CircleDiv pic={student.pic}/>
-
+			<CircleDiv pic={pic}/>
       <TextDiv>
 				<NameSpan>
-					{student.fullName}
+					{fullNameUpperCase}
 				</NameSpan>
 				<FactsSpan>
-					Email: {student.email}
+					Email: {email}
 					<br/>
-					Company: {student.company}
+					Company: {company}
 					<br/>
-					Skill: {student.skill}
+					Skill: {skill}
 					<br/>
 					Average: {average}%
 				</FactsSpan>
 			</TextDiv>
+			<GradesButton
+			onClick={() => setGradesView(!gradesView)} >
+				{gradesView ? '-' : '+'}
+			</GradesButton>
 		</StudentDiv>
+		{gradesView ? <Grades grades={grades}/> : null}
+		<HorizontalLine/>
+		</>
 	)
 }

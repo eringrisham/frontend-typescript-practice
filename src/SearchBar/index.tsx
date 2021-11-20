@@ -2,11 +2,10 @@ import React from 'react';
 import { SearchBarDiv, SearchBarInput } from './styles.css';
 
 interface SearchBarProps {
-	name: string;
 	searchStudentsByName: (e: React.FormEvent<HTMLInputElement>) => void;
 }
 
-export const SearchBar: React.FC<SearchBarProps> = ({name, searchStudentsByName}) => {
+export const SearchBar: React.FC<SearchBarProps> = ({searchStudentsByName}) => {
 
 	return (
 		<SearchBarDiv>
