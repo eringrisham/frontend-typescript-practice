@@ -15,17 +15,26 @@ interface StudentContainerProps {
 		pic: string;
 		skill: string;
 		fullName: string;
+		tags: string[];
 	};
 	key: number;
+	getTagsPerStudent: (tags:string[], studentName:string) => void;
+	// tags: string[];
+	// tagTerm: string;
+	// addTag: (e: React.FormEvent<HTMLFormElement>) => void;
+	// updateTagTerm: (e: React.FormEvent<HTMLInputElement>) => void;
 }
 
+const sampleTags = ['tag1', 'tag2', 'tag3'];
 export interface ImageProps {
 	pic: any;
 }
 
-const sampleTags = ['tag1', 'tag2', 'tag3'];
+//***********might need to lift tag state to app */
 
-export const StudentContainer: React.FC<StudentContainerProps> = ({student}) => {
+export const StudentContainer: React.FC<StudentContainerProps> = ({student, getTagsPerStudent
+	// tags, addTag, updateTagTerm, tagTerm
+}) => {
 
 	const { fullName, email, company, skill, pic, grades } = student;
 
@@ -33,7 +42,7 @@ export const StudentContainer: React.FC<StudentContainerProps> = ({student}) => 
 
 	const [gradesView, setGradesView] = useState(false);
 
-	const [tags, setTags] = useState(sampleTags);
+	const [tags, setTags] = useState(['']);
 
 	const [tagTerm, setTagTerm] = useState('');
 
@@ -45,11 +54,13 @@ export const StudentContainer: React.FC<StudentContainerProps> = ({student}) => 
 
 	const average:Number = findAverageGrade(grades);
 
-	const addTag = (e: React.FormEvent<HTMLFormElement>) => {
+	const addTag = (e: React.FormEvent<HTMLFormElement>, name:string) => {
 		e.preventDefault();
     const updatedTags = [...tags, tagTerm];
     setTags(updatedTags);
 		setTagTerm('');
+		student.tags = updatedTags;
+		getTagsPerStudent(updatedTags, name);
   }
 
 	const updateTagTerm = (e: React.FormEvent<HTMLInputElement>) => {
@@ -82,7 +93,11 @@ export const StudentContainer: React.FC<StudentContainerProps> = ({student}) => 
 			</GradesButton>
 		</StudentDiv>
 		{gradesView ? <Grades grades={grades}/> : null}
-		<Tags tags={tags} tagTerm={tagTerm} updateTagTerm={updateTagTerm} addTag={addTag}/>
+
+
+		<Tags name={student.fullName} getTagsPerStudent={getTagsPerStudent} tags={student.tags} tagTerm={tagTerm} updateTagTerm={updateTagTerm} addTag={addTag}/>
+
+
 		<HorizontalLine/>
 		</>
 	)

@@ -13,7 +13,9 @@ const App: React.FC = () => {
 
   const [tagSearchInput, setTagSearchInput] = useState('');
 
-  // const [tags, setTags] = useState(['']);
+  //const [tags, setTags] = useState(['']);
+
+	// const [tagTerm, setTagTerm] = useState('');
 
   useEffect(() => {
 
@@ -25,8 +27,8 @@ const App: React.FC = () => {
 
     })
     .then(students => {
-      const studentDataWithFullName = students.map((student: { fullName: string; firstName: string; lastName: string}):{} => {
-
+      const studentDataWithFullName = students.map((student: { fullName: string; firstName: string; lastName: string; tags: string[]}):{} => {
+        student.tags = [];
         student.fullName = student.firstName + ' ' + student.lastName;
         return student;
 
@@ -48,11 +50,31 @@ const App: React.FC = () => {
     setTagSearchInput(newTag);
   }
 
-  // const addTag = (e: React.FormEvent<HTMLInputElement>) => {
-  //   e.preventDefault();
-  //   const updatedTags = [...tags, (e.target as HTMLTextAreaElement).value]
+  const getTagsPerStudent = (tags:string[], studentName:string) => {
+    //setTags(tags);
+
+    const studentDataWithTags = studentData.map((student: {fullName: string; tags: string[]}):{} => {
+      if (student.fullName === studentName) {
+        student.tags = tags;
+      }
+      return student;
+    })
+
+    setStudentData(studentDataWithTags as []);
+  }
+
+  // const addTag = (e: React.FormEvent<HTMLFormElement>) => {
+	// 	e.preventDefault();
+  //   const updatedTags = [...tags, tagTerm];
   //   setTags(updatedTags);
+	// 	setTagTerm('');
   // }
+
+	// const updateTagTerm = (e: React.FormEvent<HTMLInputElement>) => {
+	// 	e.preventDefault();
+	// 	const term = (e.target as HTMLTextAreaElement).value;
+	// 	setTagTerm(term);
+	// }
 
   return (
     <>
@@ -65,7 +87,11 @@ const App: React.FC = () => {
         student.fullName = student.fullName.toLowerCase();
         return student.fullName.includes(nameSearchInput);
       }).map((student, i) => (
-        <StudentContainer student={student} key={i}/>
+        <StudentContainer
+        getTagsPerStudent={getTagsPerStudent}
+        // tagTerm={tagTerm} addTag={addTag} updateTagTerm={updateTagTerm} tags={tags}
+         student={student} key={i}
+        />
       ))}
     </StudentsContainer>
     </>
