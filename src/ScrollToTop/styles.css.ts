@@ -8,13 +8,13 @@ export const ScrollDiv = styled.div`
   &:hover {
     color: black;
   }
-	margin-left: 80%;
+	margin-left: 50%;
 	padding-top: 20px;
 	width: 300px;
 `
 
 export const TextDiv = styled.div`
   font-size: 40px;
-	margin-left: 75%;
+	margin-left: 45%;
 	padding-bottom: 20px;
 `

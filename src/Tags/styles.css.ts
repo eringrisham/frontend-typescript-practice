@@ -12,7 +12,7 @@ export const TagsDiv = styled.div`
 export const TagSpan = styled.span`
   background-color: lightGray;
 	color: black;
-	padding: 10px 5px 10px;
+	padding: 15px 10px 15px;
 	margin: 10px;
 	border-radius: 5px;
 	font-size: 40px;
