@@ -3,6 +3,7 @@ import axios from 'axios';
 import { StudentContainer } from './Student';
 import { SearchBar } from './SearchBar';
 import { TagSearchBar } from './TagSearch'
+import { ScrollArrow } from './ScrollToTop';
 import { StudentsContainer, HorizontalLine } from './styles.css';
 
 const App: React.FC = () => {
@@ -82,6 +83,7 @@ const App: React.FC = () => {
             student={student}
             key={i}/>
         ))}
+        <ScrollArrow/>
       </StudentsContainer>
     </>
   );
