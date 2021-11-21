@@ -74,7 +74,7 @@ const App: React.FC = () => {
             return student.fullName.includes(nameSearchInput);
           } else {
             return student.fullName.includes(nameSearchInput)
-            && student.tags.join('').includes(tagSearchInput);
+            && student.tags.join(' ').includes(tagSearchInput);
           }
         }).map((student, i) => (
           <StudentContainer
