@@ -4,7 +4,7 @@ import { StudentContainer } from './Student';
 import { SearchBar } from './SearchBar';
 import { TagSearchBar } from './TagSearch'
 import { ScrollArrow } from './ScrollToTop';
-import { StudentsContainer, HorizontalLine } from './styles.css';
+import { StudentsContainer, HorizontalLine, NoStudentsSpan } from './styles.css';
 
 const App: React.FC = () => {
 
@@ -60,8 +60,19 @@ const App: React.FC = () => {
     setStudentData(studentDataWithTags as []);
   }
 
+  const filteredStudents = studentData.filter((student: { fullName: string; tags: string[]}):{} => {
+    student.fullName = student.fullName.toLowerCase();
+    if (!tagSearchInput) {
+      return student.fullName.includes(nameSearchInput);
+    } else {
+      return student.fullName.includes(nameSearchInput)
+      && student.tags.join(' ').includes(tagSearchInput);
+    }
+  });
+
   return (
     <>
+      {filteredStudents.length === 0 ? <NoStudentsSpan>No students matching your search criteria</NoStudentsSpan> : null}
       <SearchBar
         searchStudentsByName={searchStudentsByName}/>
       <HorizontalLine/>
@@ -69,21 +80,13 @@ const App: React.FC = () => {
         searchStudentsByTag={searchStudentsByTag}/>
       <HorizontalLine/>
       <StudentsContainer>
-        {studentData.filter((student: { fullName: string; tags: string[]}):{} => {
-          student.fullName = student.fullName.toLowerCase();
-          if (!tagSearchInput) {
-            return student.fullName.includes(nameSearchInput);
-          } else {
-            return student.fullName.includes(nameSearchInput)
-            && student.tags.join(' ').includes(tagSearchInput);
-          }
-        }).map((student, i) => (
+        {filteredStudents.map((student, i) => (
           <StudentContainer
             getTagsPerStudent={getTagsPerStudent}
             student={student}
             key={i}/>
         ))}
-        <ScrollArrow/>
+        {filteredStudents.length === 0 ? null : <ScrollArrow/>}
       </StudentsContainer>
     </>
   );
