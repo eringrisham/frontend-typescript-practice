@@ -13,10 +13,6 @@ const App: React.FC = () => {
 
   const [tagSearchInput, setTagSearchInput] = useState('');
 
-  //const [tags, setTags] = useState(['']);
-
-	// const [tagTerm, setTagTerm] = useState('');
-
   useEffect(() => {
 
     axios.get(`https://api.hatchways.io/assessment/students`)
@@ -27,7 +23,9 @@ const App: React.FC = () => {
 
     })
     .then(students => {
+
       const studentDataWithFullName = students.map((student: { fullName: string; firstName: string; lastName: string; tags: string[]}):{} => {
+
         student.tags = [];
         student.fullName = student.firstName + ' ' + student.lastName;
         return student;
@@ -51,7 +49,6 @@ const App: React.FC = () => {
   }
 
   const getTagsPerStudent = (tags:string[], studentName:string) => {
-    //setTags(tags);
 
     const studentDataWithTags = studentData.map((student: {fullName: string; tags: string[]}):{} => {
       if (student.fullName === studentName) {
@@ -59,41 +56,33 @@ const App: React.FC = () => {
       }
       return student;
     })
-
     setStudentData(studentDataWithTags as []);
   }
 
-  // const addTag = (e: React.FormEvent<HTMLFormElement>) => {
-	// 	e.preventDefault();
-  //   const updatedTags = [...tags, tagTerm];
-  //   setTags(updatedTags);
-	// 	setTagTerm('');
-  // }
-
-	// const updateTagTerm = (e: React.FormEvent<HTMLInputElement>) => {
-	// 	e.preventDefault();
-	// 	const term = (e.target as HTMLTextAreaElement).value;
-	// 	setTagTerm(term);
-	// }
-
   return (
     <>
-    <SearchBar searchStudentsByName={searchStudentsByName}/>
-    <HorizontalLine/>
-    <TagSearchBar searchStudentsByTag={searchStudentsByTag}/>
-    <HorizontalLine/>
-    <StudentsContainer>
-      {studentData.filter((student: { fullName: string}):{} => {
-        student.fullName = student.fullName.toLowerCase();
-        return student.fullName.includes(nameSearchInput);
-      }).map((student, i) => (
-        <StudentContainer
-        getTagsPerStudent={getTagsPerStudent}
-        // tagTerm={tagTerm} addTag={addTag} updateTagTerm={updateTagTerm} tags={tags}
-         student={student} key={i}
-        />
-      ))}
-    </StudentsContainer>
+      <SearchBar
+        searchStudentsByName={searchStudentsByName}/>
+      <HorizontalLine/>
+      <TagSearchBar
+        searchStudentsByTag={searchStudentsByTag}/>
+      <HorizontalLine/>
+      <StudentsContainer>
+        {studentData.filter((student: { fullName: string; tags: string[]}):{} => {
+          student.fullName = student.fullName.toLowerCase();
+          if (!tagSearchInput) {
+            return student.fullName.includes(nameSearchInput);
+          } else {
+            return student.fullName.includes(nameSearchInput)
+            && student.tags.join('').includes(tagSearchInput);
+          }
+        }).map((student, i) => (
+          <StudentContainer
+            getTagsPerStudent={getTagsPerStudent}
+            student={student}
+            key={i}/>
+        ))}
+      </StudentsContainer>
     </>
   );
 }

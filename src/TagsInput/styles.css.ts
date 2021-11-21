@@ -5,7 +5,8 @@ export const AddTagDiv = styled.div`
 	overflow: hidden;
   padding-top: 20px;
 	margin-left: 390px;
-	width: 20%;
+	margin-bottom: 20px;
+	width: 300px;
 `
 
 export const AddTagInput = styled.input`

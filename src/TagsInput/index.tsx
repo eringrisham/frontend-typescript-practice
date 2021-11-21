@@ -8,17 +8,14 @@ interface TagInputProps {
 	name: string;
 }
 
-export const TagInput: React.FC<TagInputProps> = ({ addTag, updateTagTerm, tagTerm, name }) => {
-
-	return (
-		<AddTagDiv>
-			<form onSubmit={e => addTag(e, name)}>
-				<AddTagInput
-					onChange={e => updateTagTerm(e)}
-					type='text'
-					value={tagTerm}
-					placeholder='Add a tag'/>
-			</form>
-		</AddTagDiv>
-	)
-}
+export const TagInput: React.FC<TagInputProps> = ({ addTag, updateTagTerm, tagTerm, name }) => (
+	<AddTagDiv>
+		<form onSubmit={e => addTag(e, name)}>
+			<AddTagInput
+				onChange={e => updateTagTerm(e)}
+				type='text'
+				value={tagTerm}
+				placeholder='Add a tag'/>
+		</form>
+	</AddTagDiv>
+)

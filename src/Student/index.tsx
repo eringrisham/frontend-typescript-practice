@@ -19,22 +19,13 @@ interface StudentContainerProps {
 	};
 	key: number;
 	getTagsPerStudent: (tags:string[], studentName:string) => void;
-	// tags: string[];
-	// tagTerm: string;
-	// addTag: (e: React.FormEvent<HTMLFormElement>) => void;
-	// updateTagTerm: (e: React.FormEvent<HTMLInputElement>) => void;
 }
 
-const sampleTags = ['tag1', 'tag2', 'tag3'];
 export interface ImageProps {
 	pic: any;
 }
 
-//***********might need to lift tag state to app */
-
-export const StudentContainer: React.FC<StudentContainerProps> = ({student, getTagsPerStudent
-	// tags, addTag, updateTagTerm, tagTerm
-}) => {
+export const StudentContainer: React.FC<StudentContainerProps> = ({ student, getTagsPerStudent }) => {
 
 	const { fullName, email, company, skill, pic, grades } = student;
 
@@ -71,34 +62,35 @@ export const StudentContainer: React.FC<StudentContainerProps> = ({student, getT
 
 	return (
 		<>
-		<StudentDiv>
-			<CircleDiv pic={pic}/>
-      <TextDiv>
-				<NameSpan>
-					{fullNameUpperCase}
-				</NameSpan>
-				<FactsSpan>
-					Email: {email}
-					<br/>
-					Company: {company}
-					<br/>
-					Skill: {skill}
-					<br/>
-					Average: {average}%
-				</FactsSpan>
-			</TextDiv>
-			<GradesButton
-			onClick={() => setGradesView(!gradesView)} >
-				{gradesView ? '-' : '+'}
-			</GradesButton>
-		</StudentDiv>
-		{gradesView ? <Grades grades={grades}/> : null}
-
-
-		<Tags name={student.fullName} getTagsPerStudent={getTagsPerStudent} tags={student.tags} tagTerm={tagTerm} updateTagTerm={updateTagTerm} addTag={addTag}/>
-
-
-		<HorizontalLine/>
+			<StudentDiv>
+				<CircleDiv pic={pic}/>
+				<TextDiv>
+					<NameSpan>
+						{fullNameUpperCase}
+					</NameSpan>
+					<FactsSpan>
+						Email: {email}
+						<br/>
+						Company: {company}
+						<br/>
+						Skill: {skill}
+						<br/>
+						Average: {average}%
+					</FactsSpan>
+				</TextDiv>
+				<GradesButton
+				onClick={() => setGradesView(!gradesView)} >
+					{gradesView ? '-' : '+'}
+				</GradesButton>
+			</StudentDiv>
+			{gradesView ? <Grades grades={grades}/> : null}
+			<Tags
+			  name={fullName}
+				tags={student.tags}
+				tagTerm={tagTerm}
+				updateTagTerm={updateTagTerm}
+				addTag={addTag}/>
+			<HorizontalLine/>
 		</>
 	)
 }

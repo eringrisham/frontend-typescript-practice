@@ -5,15 +5,13 @@ interface GradesProps {
 	grades: [];
 }
 
-export const Grades: React.FC<GradesProps> = ({grades}) => {
-
-	return (
-		<GradesDiv>
+export const Grades: React.FC<GradesProps> = ({ grades }) => (
+	<GradesDiv>
 		{grades.map((grade, i) => (
-			<div key={i}>
+			<div
+				key={i}>
 				Test {i + 1}: {grade}%
 			</div>
 		))}
-		</GradesDiv>
-	)
-}
+	</GradesDiv>
+)
