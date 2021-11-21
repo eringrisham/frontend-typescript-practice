@@ -37,7 +37,6 @@ export const NameSpan = styled.div`
 
 export const FactsSpan = styled.span`
   display: flex;
-  color: black;
   font-size: 40px;
 	position: relative;
 	left: 40px;

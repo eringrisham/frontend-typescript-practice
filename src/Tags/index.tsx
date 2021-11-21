@@ -12,20 +12,20 @@ interface TagProps {
 
 export const Tags: React.FC<TagProps> = ({ name, addTag, tags, updateTagTerm, tagTerm }) => (
 	<>
-	<TagsDiv>
-		{tags.filter(tag => (
-			tag.length
-		)).map((tag, i) => (
-			<TagSpan
-				key={i}>
-				{tag}
-			</TagSpan>
-		))}
-	</TagsDiv>
-	<TagInput
-		name={name}
-		tagTerm={tagTerm}
-		updateTagTerm={updateTagTerm}
-		addTag={addTag}/>
+		<TagsDiv>
+			{tags.filter(tag => (
+				tag.length
+			)).map((tag, i) => (
+				<TagSpan
+					key={i}>
+					{tag}
+				</TagSpan>
+			))}
+		</TagsDiv>
+		<TagInput
+			name={name}
+			tagTerm={tagTerm}
+			updateTagTerm={updateTagTerm}
+			addTag={addTag}/>
 	</>
 )
