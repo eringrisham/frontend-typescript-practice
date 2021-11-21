@@ -61,7 +61,9 @@ const App: React.FC = () => {
   }
 
   const filteredStudents = studentData.filter((student: { fullName: string; tags: string[]}):{} => {
+
     student.fullName = student.fullName.toLowerCase();
+
     if (!tagSearchInput) {
       return student.fullName.includes(nameSearchInput);
     } else {
@@ -72,7 +74,11 @@ const App: React.FC = () => {
 
   return (
     <>
-      {filteredStudents.length === 0 ? <NoStudentsSpan>No students matching your search criteria</NoStudentsSpan> : null}
+      {filteredStudents.length === 0
+        ? <NoStudentsSpan>
+            No students matching your search criteria
+          </NoStudentsSpan>
+        : null}
       <SearchBar
         searchStudentsByName={searchStudentsByName}/>
       <HorizontalLine/>

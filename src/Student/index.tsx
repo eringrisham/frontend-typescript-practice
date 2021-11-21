@@ -22,7 +22,7 @@ interface StudentContainerProps {
 }
 
 export interface ImageProps {
-	pic: any;
+	pic: string;
 }
 
 export const StudentContainer: React.FC<StudentContainerProps> = ({ student, getTagsPerStudent }) => {
